@@ -1,9 +1,6 @@
 package com.mortality.api.domain.country;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +17,7 @@ import java.util.UUID;
 public class Country {
 
     @Id
-    @GeneratedValue
-    private UUID id;
-
+    @Column(length = 2)
     private String iso_code;
     private String name;
 

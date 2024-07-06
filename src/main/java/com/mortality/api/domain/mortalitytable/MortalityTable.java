@@ -1,9 +1,7 @@
 package com.mortality.api.domain.mortalitytable;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.mortality.api.domain.country.Country;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +22,12 @@ public class MortalityTable {
     @GeneratedValue
     private UUID ui;
 
+    @ManyToOne
+    @JoinColumn(name = "country_code")
+    private Country country;
+
     private Integer year;
-    private String country_code;
+
     private BigDecimal mortality_rate_female;
     private BigDecimal mortality_rate_male;
 
