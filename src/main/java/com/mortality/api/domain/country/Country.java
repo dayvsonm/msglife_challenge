@@ -1,5 +1,6 @@
 package com.mortality.api.domain.country;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class Country {
 
     @Id
     @Column(length = 2, name = "iso_code")
+    @JsonProperty("code")
     private String isoCode;
     private String name;
 

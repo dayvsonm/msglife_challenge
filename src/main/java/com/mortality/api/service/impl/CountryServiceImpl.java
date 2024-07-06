@@ -16,10 +16,7 @@ public class CountryServiceImpl implements CountryService {
     @Autowired
     private CountryRepository countryRepository;
 
-    public CountryServiceImpl(CountryRepository countryRepository) {
-        this.countryRepository = countryRepository;
-    }
-
+    @Override
     public List<Country> getCountries() {
         try {
             return countryRepository.findAll();
@@ -28,6 +25,7 @@ public class CountryServiceImpl implements CountryService {
         }
     }
 
+    @Override
     public Country getCountryByCode(String code) {
         Optional<Country> countryOptional = countryRepository.findById(code.toUpperCase());
         return countryOptional.orElseThrow(() -> new NoResultException("País com ISO code '" + code + "' não encontrado."));
