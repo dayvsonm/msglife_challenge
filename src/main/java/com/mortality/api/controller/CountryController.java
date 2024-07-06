@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,11 +20,17 @@ public class CountryController {
     private static final Logger logger = LoggerFactory.getLogger(CountryController.class);
 
     @Autowired
-    private CountryService conCountryService;
+    private CountryService countryService;
 
     @GetMapping
-    public ResponseEntity<List<Country>> getAllCountries() {
-        List<Country> countries = conCountryService.getAllCountries();
+    public ResponseEntity<List<Country>> getCountries() {
+        List<Country> countries = countryService.getCountries();
         return countries.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(countries);
+    }
+
+    @GetMapping("/{isoCode}")
+    public ResponseEntity<Country> getCountryByIsoCode(@PathVariable String isoCode) {
+        Country country = countryService.getCountryByCode(isoCode);
+        return country != null ? ResponseEntity.ok(country) : ResponseEntity.notFound().build();
     }
 }

@@ -17,8 +17,8 @@ import java.util.UUID;
 public class Country {
 
     @Id
-    @Column(length = 2)
-    private String iso_code;
+    @Column(length = 2, name = "iso_code")
+    private String isoCode;
     private String name;
 
 }
