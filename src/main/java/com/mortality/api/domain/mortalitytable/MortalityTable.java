@@ -1,5 +1,6 @@
 package com.mortality.api.domain.mortalitytable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mortality.api.domain.country.Country;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class MortalityTable {
 
     @Id
     @GeneratedValue
-    private UUID ui;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "country_code")
@@ -28,8 +29,13 @@ public class MortalityTable {
 
     private Integer year;
 
-    private BigDecimal mortality_rate_female;
-    private BigDecimal mortality_rate_male;
+    @Column(name = "rate_female")
+    @JsonProperty("rate_female")
+    private BigDecimal rateFemale;
+
+    @Column(name = "rate_male")
+    @JsonProperty("rate_male")
+    private BigDecimal rateMale;
 
 
 }

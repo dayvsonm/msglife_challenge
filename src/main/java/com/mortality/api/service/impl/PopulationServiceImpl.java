@@ -96,4 +96,34 @@ public class PopulationServiceImpl implements PopulationService {
 
         return newPopulation;
     }
+
+    // Just a Mock Fetch Population By Randon Range Number
+    @Override
+    public Population fetchPopulationByCodeYear(String code, Integer year) {
+
+        Population population = populationRepository.findByCountryIsoCodeAndYear(code, year);
+        if (population == null) {
+            int min = 5000000;
+            int max = 4000000;
+
+            int randomNumberFemale = (int) (Math.random() * ((max - min) + 1)) + min;
+            int randomNumberMale = (int) (Math.random() * ((max - min) + 1)) + min;
+
+
+            Population newPopulation = new Population();
+
+            Country country = new Country();
+            country.setIsoCode(code);
+            newPopulation.setCountry(country);
+            newPopulation.setYear(year);
+            newPopulation.setValue(randomNumberFemale + randomNumberMale);
+            newPopulation.setPopulation_female(randomNumberFemale);
+            newPopulation.setPopulation_male(randomNumberMale);
+
+            return populationRepository.save(newPopulation);
+        }
+
+        return population;
+
+    }
 }

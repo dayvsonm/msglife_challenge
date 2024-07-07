@@ -10,4 +10,5 @@ public interface PopulationService {
     List<Population> getPopulations();
     Population findPopulationByCode(String code, Integer year);
     Population createEvent(PopulationRequestDTO body);
+    Population fetchPopulationByCodeYear(String code, Integer year);
 }
