@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: msglife
+      POSTGRES_USER: msglife
+      POSTGRES_PASSWORD: msglife
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8081
+  wait:
+    image: willwill/wait-for-it
+    command: -t 60 postgres:5432
+    depends_on:
+      - postgres
+  flyway:
+    image: redgate/flyway
+    volumes:
+      - ./sql:/flyway/sql
+    environment:
+      - FLYWAY_URL=jdbc:postgresql://postgres:5432/msglife
+      - FLYWAY_USER=msglife
+      - FLYWAY_PASSWORD=msglife
+      - FLYWAY_VALIDATE_MIGRATION_NAMING=true
+    command: migrate
+    depends_on:
+      - wait
+  springboot-app:
+    build: .
+    container_name: springboot-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/msglife
+      SPRING_DATASOURCE_USERNAME: msglife
+      SPRING_DATASOURCE_PASSWORD: msglife
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - flyway
+
+volumes:
+  postgres_data:
