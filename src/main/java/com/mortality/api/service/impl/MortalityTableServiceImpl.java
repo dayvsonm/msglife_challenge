@@ -1,6 +1,7 @@
 package com.mortality.api.service.impl;
 
 import com.mortality.api.domain.country.Country;
+import com.mortality.api.domain.mortalitytable.MortalityCsvDTO;
 import com.mortality.api.domain.mortalitytable.MortalityRequestDTO;
 import com.mortality.api.domain.mortalitytable.MortalityResponseDTO;
 import com.mortality.api.domain.mortalitytable.MortalityTable;
@@ -13,12 +14,20 @@ import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 @Service
 public class MortalityTableServiceImpl implements MortalityTableService {
@@ -109,6 +118,8 @@ public class MortalityTableServiceImpl implements MortalityTableService {
     @Override
     public MortalityResponseDTO upsert(MortalityRequestDTO mortalityRequestDTO) {
 
+        Population population = populationService.fetchPopulationByCodeYear(mortalityRequestDTO.isoCode().toUpperCase(), mortalityRequestDTO.year());
+
         MortalityTable  mortalityTable = mortalityTableRepository.findByCountryIsoCodeAndYear
                 (mortalityRequestDTO.isoCode().toUpperCase(), mortalityRequestDTO.year());
 
@@ -123,6 +134,50 @@ public class MortalityTableServiceImpl implements MortalityTableService {
         mortalityTableRepository.save(mortalityTable);
 
         return this.getAllByCountryAndYear(mortalityRequestDTO.isoCode().toUpperCase(), mortalityRequestDTO.year());
+    }
+
+    @Override
+    public ResponseEntity<List<MortalityResponseDTO>> processCSV(MultipartFile file) {
+
+        List<MortalityCsvDTO> csvDTOs = this.readCSV(file);
+        List<MortalityResponseDTO> responseDTOS = new ArrayList<>();
+
+        for (MortalityCsvDTO csvDTO : csvDTOs) {
+            MortalityTable mortalityTable = mortalityTableRepository.findByCountryIsoCodeAndYear(csvDTO.getIsoCode(), csvDTO.getYear());
+
+            if (mortalityTable != null) {
+
+                MortalityRequestDTO mortalityRequestDTO = new MortalityRequestDTO(
+                        csvDTO.getIsoCode(), csvDTO.getYear(), csvDTO.getRateFemale(), csvDTO.getRateMale()
+                );
+                MortalityResponseDTO responseDTO = this.upsert(mortalityRequestDTO);
+                responseDTOS.add(responseDTO);
+            }else{
+
+                MortalityRequestDTO mortalityRequestDTO = new MortalityRequestDTO(
+                        csvDTO.getIsoCode(), csvDTO.getYear(), csvDTO.getRateFemale(), csvDTO.getRateMale()
+                );
+
+                MortalityResponseDTO responseDTO = this.create(mortalityRequestDTO);
+                responseDTOS.add(responseDTO);
+
+            }
+        }
+
+        return responseDTOS != null ? ResponseEntity.ok(responseDTOS) : ResponseEntity.noContent().build();
+    }
+
+
+    private List<MortalityCsvDTO> readCSV(MultipartFile file) {
+        try(Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))){
+            CsvToBean<MortalityCsvDTO> csvToBean = new CsvToBeanBuilder<MortalityCsvDTO>(reader)
+                    .withType(MortalityCsvDTO.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+            return csvToBean.parse();
+        } catch (Exception ex) {
+            throw new RuntimeException("Ocorreu um erro no processamento do CSV: " + ex.getMessage() );
+        }
     }
 }
 

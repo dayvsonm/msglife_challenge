@@ -2,10 +2,8 @@ package com.mortality.api.controller;
 
 import com.mortality.api.domain.mortalitytable.MortalityRequestDTO;
 import com.mortality.api.domain.mortalitytable.MortalityResponseDTO;
-import com.mortality.api.domain.mortalitytable.MortalityTable;
 
 import com.mortality.api.service.MortalityTableService;
-import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -51,8 +49,7 @@ public class MortalityTableController {
         if (!isCsvFile(file)) {
             throw new RuntimeException("O arquivo fornecido não é um arquivo CSV válido.");
         }
-
-        return ResponseEntity.noContent().build();
+        return  this.mortalityTableService.processCSV(file);
     }
 
     private boolean isCsvFile(MultipartFile file) {
