@@ -12,4 +12,6 @@ public interface MortalityTableService {
     List<MortalityResponseDTO> getAllByYear(Integer year);
 
     MortalityResponseDTO getAllByCountryAndYear(String isoCode, Integer year);
+
+    MortalityResponseDTO upsert(MortalityRequestDTO mortalityRequestDTO);
 }

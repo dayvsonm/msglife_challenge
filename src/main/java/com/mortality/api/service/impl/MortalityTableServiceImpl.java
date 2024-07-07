@@ -105,5 +105,24 @@ public class MortalityTableServiceImpl implements MortalityTableService {
                 (Integer)resultArray[6],
                 (Integer) resultArray[7]);
     }
+
+    @Override
+    public MortalityResponseDTO upsert(MortalityRequestDTO mortalityRequestDTO) {
+
+        MortalityTable  mortalityTable = mortalityTableRepository.findByCountryIsoCodeAndYear
+                (mortalityRequestDTO.isoCode().toUpperCase(), mortalityRequestDTO.year());
+
+        if (mortalityTable == null) {
+            throw new NoResultException("Tabela de Mortalidade com code '"+ mortalityRequestDTO.isoCode().toUpperCase()
+                    +"' e Ano '" +  mortalityRequestDTO.year() + "' não encontrado.");
+        }
+
+        mortalityTable.setRateMale(mortalityRequestDTO.rateMale());
+        mortalityTable.setRateFemale(mortalityRequestDTO.rateFemale());
+
+        mortalityTableRepository.save(mortalityTable);
+
+        return this.getAllByCountryAndYear(mortalityRequestDTO.isoCode().toUpperCase(), mortalityRequestDTO.year());
+    }
 }
 

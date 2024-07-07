@@ -5,9 +5,12 @@ import com.mortality.api.domain.mortalitytable.MortalityResponseDTO;
 import com.mortality.api.domain.mortalitytable.MortalityTable;
 import jakarta.persistence.TypedQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,4 +52,7 @@ public interface MortalityTableRepository extends JpaRepository<MortalityTable, 
             "population AS p ON mt.country_code = p.country_code AND mt.YEAR = p.YEAR  "+
             "WHERE mt.year = :year and mt.country_code = :iso_code;", nativeQuery = true)
     public Object getAllByCodeAndYear(  @Param("iso_code")String iso_code, @Param("year")Integer year);
+
+
+    MortalityTable findByCountryIsoCodeAndYear(String countryIsoCode, Integer year);
 }
