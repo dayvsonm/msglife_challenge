@@ -11,13 +11,15 @@ import java.util.UUID;
 
 public interface PopulationRepository extends JpaRepository<Population, UUID> {
 
-    Population findByCountryIsoCode(String countryIsoCode);
+    Population findByCountryIsoCodeAndYear(String countryIsoCode, Integer year);
 
 
     @Transactional
     @Modifying
-    @Query(value = " INSERT INTO population (id, year, value, population_female, population_male, country_code) " +
-            "VALUES (gen_random_uuid(), :year, :value, :populationFemale, :populationMale, :countryIsoCode) " +
+    @Query(value = " WITH valid_country AS ( SELECT country.iso_code from country where iso_code = :countryIsoCode) " +
+            "INSERT INTO population (id, year, value, population_female, population_male, country_code) " +
+            "SELECT gen_random_uuid(), :year, :value, :populationFemale, :populationMale, :countryIsoCode " +
+            "WHERE exists (select 1 from valid_country) " +
             "ON CONFLICT (year,country_code) DO UPDATE  " +
             "SET year = EXCLUDED.year, " +
             "value = EXCLUDED.value, " +

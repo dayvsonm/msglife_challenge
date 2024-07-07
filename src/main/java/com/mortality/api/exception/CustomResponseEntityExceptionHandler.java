@@ -1,6 +1,8 @@
 package com.mortality.api.exception;
 
 import jakarta.persistence.NoResultException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,6 +21,7 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     static {
         EXCEPTION_STATUS_MAP.put(NoResultException.class, HttpStatus.NOT_FOUND);
         EXCEPTION_STATUS_MAP.put(RuntimeException.class, HttpStatus.INTERNAL_SERVER_ERROR);
+        EXCEPTION_STATUS_MAP.put(DataIntegrityViolationException.class, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(Exception.class)
@@ -29,6 +32,11 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     @ExceptionHandler(NoResultException.class)
     public ResponseEntity<Object> handleResourceNotFoundException(NoResultException ex) {
         return handleException(ex, ErrorCode.RESOURCE_NOT_FOUND);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> handleDuplicateKeyException(DuplicateKeyException ex) {
+        return handleException(ex, ErrorCode.DUPLICATED_VALUE);
     }
 
     private ResponseEntity<Object> handleException(Exception ex, ErrorCode errorCode) {
