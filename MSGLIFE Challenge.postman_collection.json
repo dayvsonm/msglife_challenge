@@ -1,0 +1,868 @@
+{
+	"info": {
+		"_postman_id": "17f93159-b7f8-43f4-a4e6-060461b7e407",
+		"name": "MSGLIFE Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3644206"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "mortality",
+					"item": [
+						{
+							"name": "upload",
+							"item": [
+								{
+									"name": "upload",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "multipart/form-data"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"value": "<string>",
+													"description": "(Required) ",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/mortality/upload",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"mortality",
+												"upload"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "file",
+															"value": "<string>",
+															"description": "(Required) ",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/mortality/upload",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"mortality",
+														"upload"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"iso_code\": \"<string>\",\n    \"year\": \"<integer>\",\n    \"mortality_rate_female\": \"<number>\",\n    \"mortality_rate_male\": \"<number>\",\n    \"total_population\": \"<integer>\",\n    \"total_female\": \"<integer>\",\n    \"total_male\": \"<integer>\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"iso_code\": \"<string>\",\n    \"year\": \"<integer>\",\n    \"mortality_rate_female\": \"<number>\",\n    \"mortality_rate_male\": \"<number>\",\n    \"total_population\": \"<integer>\",\n    \"total_female\": \"<integer>\",\n    \"total_male\": \"<integer>\"\n  }\n]"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "year",
+							"item": [
+								{
+									"name": "{year}",
+									"item": [
+										{
+											"name": "get All By Year",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/mortality/year/:year",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"mortality",
+														"year",
+														":year"
+													],
+													"variable": [
+														{
+															"key": "year",
+															"value": "<integer>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/mortality/year/:year",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"mortality",
+																"year",
+																":year"
+															],
+															"variable": [
+																{
+																	"key": "year"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"iso_code\": \"<string>\",\n    \"year\": \"<integer>\",\n    \"mortality_rate_female\": \"<number>\",\n    \"mortality_rate_male\": \"<number>\",\n    \"total_population\": \"<integer>\",\n    \"total_female\": \"<integer>\",\n    \"total_male\": \"<integer>\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"iso_code\": \"<string>\",\n    \"year\": \"<integer>\",\n    \"mortality_rate_female\": \"<number>\",\n    \"mortality_rate_male\": \"<number>\",\n    \"total_population\": \"<integer>\",\n    \"total_female\": \"<integer>\",\n    \"total_male\": \"<integer>\"\n  }\n]"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "country",
+							"item": [
+								{
+									"name": "{isoCode}",
+									"item": [
+										{
+											"name": "year",
+											"item": [
+												{
+													"name": "{year}",
+													"item": [
+														{
+															"name": "get All By Year 1",
+															"request": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/mortality/country/:isoCode/year/:year",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"mortality",
+																		"country",
+																		":isoCode",
+																		"year",
+																		":year"
+																	],
+																	"variable": [
+																		{
+																			"key": "isoCode",
+																			"value": "<string>",
+																			"description": "(Required) "
+																		},
+																		{
+																			"key": "year",
+																			"value": "<integer>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "OK",
+																	"originalRequest": {
+																		"method": "GET",
+																		"header": [
+																			{
+																				"key": "Accept",
+																				"value": "*/*"
+																			}
+																		],
+																		"url": {
+																			"raw": "{{baseUrl}}/api/mortality/country/:isoCode/year/:year",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"api",
+																				"mortality",
+																				"country",
+																				":isoCode",
+																				"year",
+																				":year"
+																			],
+																			"variable": [
+																				{
+																					"key": "isoCode"
+																				},
+																				{
+																					"key": "year"
+																				}
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "text",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "*/*"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "{\n  \"id\": \"<uuid>\",\n  \"iso_code\": \"<string>\",\n  \"year\": \"<integer>\",\n  \"mortality_rate_female\": \"<number>\",\n  \"mortality_rate_male\": \"<number>\",\n  \"total_population\": \"<integer>\",\n  \"total_female\": \"<integer>\",\n  \"total_male\": \"<integer>\"\n}"
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "upsert",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"isoCode\": \"<string>\",\n  \"year\": \"<integer>\",\n  \"rateFemale\": \"<number>\",\n  \"rateMale\": \"<number>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/mortality",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"mortality"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"isoCode\": \"<string>\",\n  \"year\": \"<integer>\",\n  \"rateFemale\": \"<number>\",\n  \"rateMale\": \"<number>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/mortality",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"mortality"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<uuid>\",\n  \"iso_code\": \"<string>\",\n  \"year\": \"<integer>\",\n  \"mortality_rate_female\": \"<number>\",\n  \"mortality_rate_male\": \"<number>\",\n  \"total_population\": \"<integer>\",\n  \"total_female\": \"<integer>\",\n  \"total_male\": \"<integer>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "create 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"isoCode\": \"<string>\",\n  \"year\": \"<integer>\",\n  \"rateFemale\": \"<number>\",\n  \"rateMale\": \"<number>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/mortality",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"mortality"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"isoCode\": \"<string>\",\n  \"year\": \"<integer>\",\n  \"rateFemale\": \"<number>\",\n  \"rateMale\": \"<number>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/mortality",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"mortality"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<uuid>\",\n  \"iso_code\": \"<string>\",\n  \"year\": \"<integer>\",\n  \"mortality_rate_female\": \"<number>\",\n  \"mortality_rate_male\": \"<number>\",\n  \"total_population\": \"<integer>\",\n  \"total_female\": \"<integer>\",\n  \"total_male\": \"<integer>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "populations",
+					"item": [
+						{
+							"name": "country",
+							"item": [
+								{
+									"name": "{isoCode}",
+									"item": [
+										{
+											"name": "year",
+											"item": [
+												{
+													"name": "{year}",
+													"item": [
+														{
+															"name": "get Population By Country Iso Code And Year",
+															"request": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/populations/country/:isoCode/year/:year",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"populations",
+																		"country",
+																		":isoCode",
+																		"year",
+																		":year"
+																	],
+																	"variable": [
+																		{
+																			"key": "isoCode",
+																			"value": "<string>",
+																			"description": "(Required) "
+																		},
+																		{
+																			"key": "year",
+																			"value": "<integer>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "OK",
+																	"originalRequest": {
+																		"method": "GET",
+																		"header": [
+																			{
+																				"key": "Accept",
+																				"value": "*/*"
+																			}
+																		],
+																		"url": {
+																			"raw": "{{baseUrl}}/api/populations/country/:isoCode/year/:year",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"api",
+																				"populations",
+																				"country",
+																				":isoCode",
+																				"year",
+																				":year"
+																			],
+																			"variable": [
+																				{
+																					"key": "isoCode"
+																				},
+																				{
+																					"key": "year"
+																				}
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "text",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "*/*"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "{\n  \"id\": \"<uuid>\",\n  \"country\": {\n    \"name\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"year\": \"<integer>\",\n  \"value\": \"<integer>\",\n  \"population_female\": \"<integer>\",\n  \"population_male\": \"<integer>\"\n}"
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "get Populations",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/populations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"populations"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/populations",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"populations"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"country\": {\n      \"name\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    \"year\": \"<integer>\",\n    \"value\": \"<integer>\",\n    \"population_female\": \"<integer>\",\n    \"population_male\": \"<integer>\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"country\": {\n      \"name\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    \"year\": \"<integer>\",\n    \"value\": \"<integer>\",\n    \"population_female\": \"<integer>\",\n    \"population_male\": \"<integer>\"\n  }\n]"
+								}
+							]
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"isoCode\": \"<string>\",\n  \"year\": \"<integer>\",\n  \"value\": \"<integer>\",\n  \"population_female\": \"<integer>\",\n  \"population_male\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/populations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"populations"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"isoCode\": \"<string>\",\n  \"year\": \"<integer>\",\n  \"value\": \"<integer>\",\n  \"population_female\": \"<integer>\",\n  \"population_male\": \"<integer>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/populations",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"populations"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<uuid>\",\n  \"country\": {\n    \"name\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"year\": \"<integer>\",\n  \"value\": \"<integer>\",\n  \"population_female\": \"<integer>\",\n  \"population_male\": \"<integer>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "countries",
+					"item": [
+						{
+							"name": "{isoCode}",
+							"item": [
+								{
+									"name": "get Country By Iso Code",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/countries/:isoCode",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"countries",
+												":isoCode"
+											],
+											"variable": [
+												{
+													"key": "isoCode",
+													"value": "<string>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/countries/:isoCode",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"countries",
+														":isoCode"
+													],
+													"variable": [
+														{
+															"key": "isoCode"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"name\": \"<string>\",\n  \"code\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "get Countries",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/countries",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"countries"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/countries",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"countries"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"name\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n]"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
